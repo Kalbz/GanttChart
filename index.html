@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planvy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Delad planering</p>
+        <h1>Visuell arbetsplan</h1>
+        <p class="intro">En enkel, gemensam tidslinje för aktiviteter, ansvar och tider.</p>
+      </div>
+      <div class="topbar-actions">
+        <button id="toggleEditBtn" class="ghost-btn" type="button">Redigeringsläge: På</button>
+        <button id="addItemBtn" class="primary-btn" type="button" aria-label="Lägg till aktivitet">+</button>
+      </div>
+    </header>
+
+    <section class="controls-card">
+      <div class="controls-grid">
+        <label>
+          <span>Visa rader som</span>
+          <select id="groupBySelect">
+            <option value="person">Ansvarig</option>
+            <option value="category">Kategori</option>
+            <option value="department">Avdelning</option>
+          </select>
+        </label>
+        <label>
+          <span>Filtrera ansvarig</span>
+          <select id="personFilter">
+            <option value="">Alla</option>
+          </select>
+        </label>
+        <label>
+          <span>Filtrera kategori</span>
+          <select id="categoryFilter">
+            <option value="">Alla</option>
+          </select>
+        </label>
+        <label>
+          <span>Filtrera färg</span>
+          <select id="colorFilter">
+            <option value="">Alla</option>
+          </select>
+        </label>
+        <label>
+          <span>Sortera</span>
+          <select id="sortSelect">
+            <option value="start">Startdatum</option>
+            <option value="person">Ansvarig</option>
+            <option value="category">Kategori</option>
+            <option value="color">Färg</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section class="timeline-card">
+      <div class="timeline-layout">
+        <aside class="labels-panel">
+          <div class="labels-header">Rader</div>
+          <div id="labelsList" class="labels-list"></div>
+        </aside>
+        <div class="timeline-panel">
+          <div id="timelineHeader" class="timeline-header"></div>
+          <div id="timelineBody" class="timeline-body"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <dialog id="itemDialog" class="modal">
+    <form id="itemForm" class="modal-card" method="dialog">
+      <div class="modal-header">
+        <div>
+          <p class="eyebrow">Aktivitet</p>
+          <h2 id="dialogTitle">Ny aktivitet</h2>
+        </div>
+        <button id="closeDialogBtn" class="icon-btn" type="button" aria-label="Stäng">x</button>
+      </div>
+
+      <input type="hidden" id="itemId">
+
+      <div class="form-grid">
+        <label>
+          <span>Titel</span>
+          <input id="titleInput" name="title" type="text" required>
+        </label>
+        <label>
+          <span>Ansvarig</span>
+          <input id="personInput" name="person" type="text" required>
+        </label>
+        <label>
+          <span>Kategori</span>
+          <input id="categoryInput" name="category" type="text" required>
+        </label>
+        <label>
+          <span>Avdelning</span>
+          <input id="departmentInput" name="department" type="text" required>
+        </label>
+        <label>
+          <span>Start</span>
+          <input id="startInput" name="start" type="datetime-local" required>
+        </label>
+        <label>
+          <span>Slut</span>
+          <input id="endInput" name="end" type="datetime-local" required>
+        </label>
+        <label>
+          <span>Färg</span>
+          <input id="colorInput" name="color" type="color" value="#2f7df4" required>
+        </label>
+        <label class="full-width">
+          <span>Beskrivning</span>
+          <textarea id="descriptionInput" name="description" rows="4" placeholder="Valfri beskrivning"></textarea>
+        </label>
+      </div>
+
+      <div class="modal-actions">
+        <button id="deleteItemBtn" class="danger-btn" type="button">Ta bort</button>
+        <div class="modal-actions-right">
+          <button id="cancelDialogBtn" class="ghost-btn" type="button">Avbryt</button>
+          <button class="primary-text-btn" type="submit">Spara</button>
+        </div>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
