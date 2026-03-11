@@ -414,3 +414,30 @@ textarea {
 }
 
 
+
+.gantt-bar.is-tight {
+  padding-inline: 14px;
+}
+
+.gantt-bar.is-tight .gantt-bar-title {
+  font-size: 0.84rem;
+  line-height: 1.1;
+}
+
+.gantt-bar.is-compact {
+  padding: 0;
+  display: grid;
+  place-items: center;
+}
+
+.gantt-bar-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.18);
+}
+
+.gantt-bar.is-compact .bar-handle {
+  width: 10px;
+}

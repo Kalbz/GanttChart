@@ -341,15 +341,39 @@ function createBar(item, range) {
   const end = new Date(item.end).getTime();
   const left = ((start - range.start.getTime()) / DAY_MS) * PX_PER_DAY;
   const width = Math.max(40, ((end - start) / DAY_MS) * PX_PER_DAY);
+  const isCompact = width < 96;
+  const isTight = width >= 96 && width < 148;
+  const label = `${item.title} | ${item.person} | ${item.category}`;
 
   bar.style.left = `${left}px`;
   bar.style.width = `${width}px`;
-  bar.innerHTML = `
-    <span class="gantt-bar-title">${item.title}</span>
-    <span class="gantt-bar-meta">${item.person} · ${item.category}</span>
-    <span class="bar-handle left" data-handle="start"></span>
-    <span class="bar-handle right" data-handle="end"></span>
-  `;
+  bar.title = label;
+  bar.setAttribute("aria-label", label);
+
+  if (isCompact) {
+    bar.classList.add("is-compact");
+  } else if (isTight) {
+    bar.classList.add("is-tight");
+  }
+
+  bar.innerHTML = isCompact
+    ? `
+      <span class="gantt-bar-dot" aria-hidden="true"></span>
+      <span class="bar-handle left" data-handle="start"></span>
+      <span class="bar-handle right" data-handle="end"></span>
+    `
+    : isTight
+      ? `
+        <span class="gantt-bar-title">${item.title}</span>
+        <span class="bar-handle left" data-handle="start"></span>
+        <span class="bar-handle right" data-handle="end"></span>
+      `
+      : `
+        <span class="gantt-bar-title">${item.title}</span>
+        <span class="gantt-bar-meta">${item.person} · ${item.category}</span>
+        <span class="bar-handle left" data-handle="start"></span>
+        <span class="bar-handle right" data-handle="end"></span>
+      `;
 
   bar.addEventListener("click", () => {
     if (state.drag?.moved) {
@@ -457,3 +481,5 @@ function toLocalInputValue(date) {
   const local = new Date(date.getTime() - offset * 60 * 1000);
   return local.toISOString().slice(0, 16);
 }
+
+
